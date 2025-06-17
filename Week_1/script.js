@@ -1,6 +1,3 @@
-// This file contains JavaScript code that adds interactivity to the website.
-
-// Example of an interactive timeline slider
 const milestones = [
   { year: '2024', event: 'Started my journey at IIT Bombay' },
   { year: '2024', event: 'Participated in Mood Indigo' },
@@ -9,34 +6,21 @@ const milestones = [
 ];
 
 function displayMilestones() {
-  const timelineContainer = document.getElementById('timeline');
-  milestones.forEach((milestone) => {
-    const milestoneElement = document.createElement('div');
-    milestoneElement.className = 'milestone';
-    milestoneElement.innerHTML = `<strong>${milestone.year}</strong>: ${milestone.event}`;
-    timelineContainer.appendChild(milestoneElement);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  displayMilestones();
-});
-
-// Example of a simple form validation
-function validateForm() {
-  const name = document.getElementById('name').value;
-  const message = document.getElementById('message').value;
-  if (name === '' || message === '') {
-    alert('Please fill in all fields.');
-    return false;
+  const timelineContainer = document.getElementById('timelineContent');
+  if (!timelineContainer) {
+    console.error('Element with id "timelineContent" not found.');
+    return;
   }
-  alert('Thank you for your message!');
-  return true;
-}
 
-document
-  .getElementById('guestbook-form')
-  .addEventListener('submit', function (event) {
-    event.preventDefault();
-    validateForm();
-  });
+  // Toggle visibility
+  const isHidden = getComputedStyle(timelineContainer).display === 'none';
+  timelineContainer.style.display = isHidden ? 'block' : 'none';
+
+  if (isHidden) {
+    // Clear existing content before re-rendering
+    timelineContainer.innerHTML = '';
+    milestones.forEach((milestone) => {
+      timelineContainer.innerHTML += `<p><strong>${milestone.year}</strong>: ${milestone.event}</p>`;
+    });
+  }
+}
