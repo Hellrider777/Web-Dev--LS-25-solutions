@@ -2,6 +2,10 @@
 
 This project is a personal website that showcases my journey at IIT Bombay. It serves as a digital scrapbook, highlighting key moments, learnings, and experiences throughout my time at the institute.
 
+# My website video link
+
+https://drive.google.com/file/d/1QaAx0dG_OdXeOHt4krN-XeMpvWwIHWvu/view?usp=sharing
+
 ## Project Structure
 
 - **index.html**: Contains the structured, semantic HTML document for the website, including sections for the header, introduction, timeline/milestones, learnings and growth, interactive element, and footer.
