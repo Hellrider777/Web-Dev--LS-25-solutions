@@ -1,0 +1,63 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Home - YouTube Clone{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <h1>Welcome to YouTube Clone</h1>
+        <p class="lead">The ultimate video sharing platform built with Django</p>
+        
+        {% if not user.is_authenticated %}
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-person-plus"></i> Get Started
+                </a>
+                <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-box-arrow-in-right"></i> Sign In
+                </a>
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'accounts:dashboard' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-play-circle"></i> Go to Dashboard
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-cloud-upload display-4 text-primary mb-3"></i>
+                    <h5 class="card-title">Upload Videos</h5>
+                    <p class="card-text">Share your creativity with the world by uploading your videos.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-people display-4 text-success mb-3"></i>
+                    <h5 class="card-title">Connect</h5>
+                    <p class="card-text">Build a community and connect with viewers around the globe.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-bar-chart display-4 text-warning mb-3"></i>
+                    <h5 class="card-title">Analytics</h5>
+                    <p class="card-text">Track your performance and grow your audience with detailed analytics.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
