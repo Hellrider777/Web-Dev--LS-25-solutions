@@ -143,6 +143,7 @@ def home_view(request):
 # API Views for React Frontend
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@csrf_exempt
 def api_register(request):
     """API endpoint for user registration"""
     try:
@@ -199,6 +200,7 @@ def api_register(request):
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@csrf_exempt
 def api_login(request):
     """API endpoint for user login"""
     try:
@@ -242,6 +244,7 @@ def api_login(request):
 
 
 @api_view(['POST'])
+@csrf_exempt
 def api_logout(request):
     """API endpoint for user logout"""
     try:
@@ -262,6 +265,7 @@ def api_logout(request):
 
 
 @api_view(['GET'])
+@csrf_exempt
 def api_current_user(request):
     """API endpoint to get current user info"""
     try:

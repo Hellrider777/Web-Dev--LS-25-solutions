@@ -205,3 +205,13 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# CSRF settings for API endpoints
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# Disable CSRF for API endpoints (since we're using DRF)
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False

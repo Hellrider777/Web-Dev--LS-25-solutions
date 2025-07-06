@@ -23,14 +23,14 @@ const Dashboard = () => {
       setLoading(true);
       
       // Fetch user videos from API
-      const videosResponse = await fetch('http://localhost:8000/api/my-videos/', {
+              const videosResponse = await fetch('http://127.0.0.1:8000/api/my-videos/', {
         headers: {
           // 'Authorization': `Bearer ${localStorage.getItem('token')}`, // Add when auth is implemented
         }
       });
 
       // Fetch user stats from API
-      const statsResponse = await fetch('http://localhost:8000/api/dashboard/stats/', {
+              const statsResponse = await fetch('http://127.0.0.1:8000/api/dashboard/stats/', {
         headers: {
           // 'Authorization': `Bearer ${localStorage.getItem('token')}`, // Add when auth is implemented
         }
