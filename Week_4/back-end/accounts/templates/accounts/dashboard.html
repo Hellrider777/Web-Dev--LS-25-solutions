@@ -1,0 +1,134 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Dashboard - YouTube Clone{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2><i class="bi bi-person-circle"></i> Welcome, {{ user.username }}!</h2>
+                            <p class="text-muted mb-0">
+                                <i class="bi bi-envelope"></i> {{ user.email }}
+                                {% if user.date_joined %}
+                                    | <i class="bi bi-calendar"></i> Member since {{ user.date_joined|date:"F Y" }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-gear"></i> Settings
+                                </a>
+                                <a href="{% url 'accounts:logout' %}" class="btn btn-outline-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="bi bi-play-circle display-4 text-primary mb-3"></i>
+                    <h5>Videos</h5>
+                    <h3 class="text-primary">0</h3>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Upload Video</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="bi bi-eye display-4 text-success mb-3"></i>
+                    <h5>Views</h5>
+                    <h3 class="text-success">0</h3>
+                    <small class="text-muted">Total views</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="bi bi-people display-4 text-info mb-3"></i>
+                    <h5>Subscribers</h5>
+                    <h3 class="text-info">0</h3>
+                    <small class="text-muted">Channel subscribers</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="bi bi-heart display-4 text-danger mb-3"></i>
+                    <h5>Likes</h5>
+                    <h3 class="text-danger">0</h3>
+                    <small class="text-muted">Total likes received</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="bi bi-clock-history"></i> Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center py-5">
+                        <i class="bi bi-inbox display-4 text-muted mb-3"></i>
+                        <h6 class="text-muted">No recent activity</h6>
+                        <p class="text-muted">Your recent uploads and interactions will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="bi bi-bell"></i> Notifications</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center py-4">
+                        <i class="bi bi-bell-slash display-5 text-muted mb-2"></i>
+                        <h6 class="text-muted">No notifications</h6>
+                        <p class="text-muted small">You're all caught up!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5><i class="bi bi-star"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-sm">
+                            <i class="bi bi-cloud-upload"></i> Upload Video
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-palette"></i> Customize Channel
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-bar-chart"></i> View Analytics
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
