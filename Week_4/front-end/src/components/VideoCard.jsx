@@ -1,36 +1,56 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const VideoCard = ({ video, onWatchLaterToggle, isWatchLater = false }) => {
-  const [isLiked, setIsLiked] = useState(false);
+const VideoCard = ({ video, onWatchLaterToggle, isWatchLater = false, isLiked = false }) => {
+  const navigate = useNavigate();
+  const [isVideoLiked, setIsVideoLiked] = useState(isLiked);
   const [isInWatchLater, setIsInWatchLater] = useState(false);
 
   useEffect(() => {
     // Check if video is liked
-    const likedVideos = JSON.parse(sessionStorage.getItem('likedVideos') || '[]');
-    setIsLiked(likedVideos.includes(video.id));
+    if (!isLiked) {
+      const likedVideos = JSON.parse(sessionStorage.getItem('likedVideos') || '[]');
+      setIsVideoLiked(likedVideos.some(v => v.id === video.id));
+    } else {
+      setIsVideoLiked(isLiked);
+    }
 
     // Check if video is in watch later
     const watchLaterVideos = JSON.parse(sessionStorage.getItem('watchLaterVideos') || '[]');
     setIsInWatchLater(watchLaterVideos.some(v => v.id === video.id));
-  }, [video.id]);
+  }, [video.id, isLiked]);
 
   const handleLike = () => {
     const likedVideos = JSON.parse(sessionStorage.getItem('likedVideos') || '[]');
     
-    if (isLiked) {
+    if (isVideoLiked) {
       // Remove from liked
-      const updatedLiked = likedVideos.filter(id => id !== video.id);
+      const updatedLiked = likedVideos.filter(v => v.id !== video.id);
       sessionStorage.setItem('likedVideos', JSON.stringify(updatedLiked));
-      setIsLiked(false);
+      setIsVideoLiked(false);
+      
+      // Notify parent component if it's the LikedVideos page
+      if (onWatchLaterToggle) {
+        onWatchLaterToggle(video.id, false);
+      }
     } else {
-      // Add to liked
-      const updatedLiked = [...likedVideos, video.id];
+      // Add to liked (store full video object)
+      const updatedLiked = [...likedVideos, video];
       sessionStorage.setItem('likedVideos', JSON.stringify(updatedLiked));
-      setIsLiked(true);
+      setIsVideoLiked(true);
+      
+      // Notify parent component
+      if (onWatchLaterToggle) {
+        onWatchLaterToggle(video.id, true);
+      }
     }
+    
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new Event('likedVideosUpdated'));
   };
 
-  const handleWatchLater = () => {
+  const handleWatchLater = (e) => {
+    e.stopPropagation(); // Prevent card click when button is clicked
     const watchLaterVideos = JSON.parse(sessionStorage.getItem('watchLaterVideos') || '[]');
     
     if (isInWatchLater) {
@@ -50,12 +70,27 @@ const VideoCard = ({ video, onWatchLaterToggle, isWatchLater = false }) => {
         onWatchLaterToggle(video.id, true);
       }
     }
+    
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new Event('watchLaterUpdated'));
+  };
+
+  const handleLikeClick = (e) => {
+    e.stopPropagation(); // Prevent card click when button is clicked
+    handleLike();
+  };
+
+  const handleCardClick = () => {
+    navigate(`/watch/${video.id}`);
   };
 
   return (
-    <div className="video-card">
+    <div className="video-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <div className="video-thumbnail">
         <img src={video.thumbnail} alt={video.title} />
+        <div className="play-overlay">
+          <i className="fas fa-play"></i>
+        </div>
       </div>
       <div className="video-info">
         <h3 className="video-title">{video.title}</h3>
@@ -63,16 +98,29 @@ const VideoCard = ({ video, onWatchLaterToggle, isWatchLater = false }) => {
         <p className="video-stats">{video.views} views • {video.time}</p>
         <div className="video-actions">
           <button 
-            className={`action-btn like-btn ${isLiked ? 'liked' : ''}`}
-            onClick={handleLike}
+            className={`action-btn like-btn ${isVideoLiked ? 'liked' : ''}`}
+            onClick={handleLikeClick}
           >
-            ❤️ {isLiked ? 'Liked' : 'Like'}
+            <i className={`${isVideoLiked ? 'fas' : 'far'} fa-heart`}></i>
+            {isVideoLiked ? 'Liked' : 'Like'}
           </button>
           <button 
             className={`action-btn watch-later-btn ${isInWatchLater ? 'added' : ''}`}
             onClick={handleWatchLater}
           >
-            {isWatchLater ? '🗑️ Remove' : (isInWatchLater ? '✅ Added' : '➕ Watch Later')}
+            {isWatchLater ? (
+              <>
+                <i className="fas fa-trash"></i> Remove
+              </>
+            ) : isInWatchLater ? (
+              <>
+                <i className="fas fa-check"></i> Added
+              </>
+            ) : (
+              <>
+                <i className="fas fa-clock"></i> Watch Later
+              </>
+            )}
           </button>
         </div>
       </div>

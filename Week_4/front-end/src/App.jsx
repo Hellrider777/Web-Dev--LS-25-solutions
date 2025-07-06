@@ -1,7 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import WatchLater from './pages/WatchLater';
+import LikedVideos from './pages/LikedVideos';
+import History from './pages/History';
+import VideoPlayer from './pages/VideoPlayer';
+import VideoUpload from './pages/VideoUpload';
+import Dashboard from './pages/Dashboard';
+import Account from './pages/Account';
+import Login from './components/Login';
+import Register from './components/Register';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 
 function App() {
@@ -10,12 +20,24 @@ function App() {
       <div className="App">
         <Navbar />
         
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/watch-later" element={<WatchLater />} />
-          </Routes>
-        </main>
+        <div className="app-layout">
+          <Sidebar />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/watch-later" element={<WatchLater />} />
+              <Route path="/liked" element={<LikedVideos />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/watch/:videoId" element={<VideoPlayer />} />
+              <Route path="/upload" element={<VideoUpload />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/video/edit/:videoId" element={<VideoUpload />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/login" element={<Account />} />
+              <Route path="/register" element={<Account />} />
+            </Routes>
+          </main>
+        </div>
 
         <footer className="footer">
           <div className="footer-content">

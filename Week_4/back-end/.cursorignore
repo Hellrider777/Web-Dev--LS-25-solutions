@@ -1,0 +1,5 @@
+# back-end/.cursorignore
+__pycache__/
+*.pyc
+venv/
+# Don't ignore .env files

@@ -44,7 +44,9 @@ const Navbar = () => {
       <div className="nav-container">
         <div className="nav-left">
           <Link to="/" className="nav-logo">
-            <span className="logo-icon">🎥</span>
+            <span className="logo-icon">
+              <i className="fas fa-video"></i>
+            </span>
             <span className="logo-text">VideoHub</span>
           </Link>
         </div>
@@ -58,15 +60,32 @@ const Navbar = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
-            <button type="submit" className="search-btn">🔍</button>
+            <button type="submit" className="search-btn">
+              <i className="fas fa-search"></i>
+            </button>
           </form>
         </div>
 
         <div className="nav-right">
           <Timer />
+          
+          <Link to="/upload" className="nav-link">
+            <button className="nav-btn upload-btn">
+              <i className="fas fa-plus"></i>
+              Upload
+            </button>
+          </Link>
+          
+          <Link to="/dashboard" className="nav-link">
+            <button className="nav-btn dashboard-btn">
+              <i className="fas fa-video"></i>
+              Dashboard
+            </button>
+          </Link>
+          
           <Link to="/watch-later" className="watch-later-link">
             <button className="watch-later-btn">
-              📺 Watch Later 
+              <i className="fas fa-clock"></i> Watch Later 
               {watchLaterCount > 0 && (
                 <span className="count-badge">{watchLaterCount}</span>
               )}
