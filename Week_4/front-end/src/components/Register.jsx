@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_CONFIG from '../config';
 import './Auth.css';
 
 const Register = ({ onRegister }) => {
@@ -45,7 +46,7 @@ const Register = ({ onRegister }) => {
     }
 
     try {
-      console.log('Making registration request to: http://127.0.0.1:8000/api/register/');
+      console.log('Making registration request to:', API_CONFIG.endpoints.register);
       console.log('Form data:', {
         username: formData.username,
         email: formData.email,
@@ -53,7 +54,7 @@ const Register = ({ onRegister }) => {
         full_name: formData.full_name
       });
       
-      const response = await fetch('http://127.0.0.1:8000/api/register/', {
+      const response = await fetch(API_CONFIG.endpoints.register, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

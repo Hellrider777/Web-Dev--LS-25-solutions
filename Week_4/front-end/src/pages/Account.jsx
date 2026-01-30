@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import API_CONFIG from '../config';
 import './Account.css';
 
 const Account = () => {
@@ -33,7 +34,7 @@ const Account = () => {
       }
 
       // Check with backend
-              const response = await fetch('http://127.0.0.1:8000/api/current-user/', {
+      const response = await fetch(`${API_CONFIG.baseURL}/api/current-user/`, {
         credentials: 'include',
       });
 
@@ -61,7 +62,7 @@ const Account = () => {
 
   const handleLogout = async () => {
     try {
-              await fetch('http://127.0.0.1:8000/api/logout/', {
+      await fetch(API_CONFIG.endpoints.logout, {
         method: 'POST',
         credentials: 'include',
       });

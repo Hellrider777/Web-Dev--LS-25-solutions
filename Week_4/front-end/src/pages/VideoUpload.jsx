@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_CONFIG from '../config';
 import './VideoUpload.css';
 
 const VideoUpload = () => {
@@ -154,7 +155,7 @@ const VideoUpload = () => {
       }
 
       // Make actual API call to backend
-              const response = await fetch('http://127.0.0.1:8000/api/videos/create/', {
+      const response = await fetch(`${API_CONFIG.baseURL}/api/videos/create/`, {
         method: 'POST',
         body: uploadData,
         headers: {
