@@ -16,7 +16,7 @@ services:
   backend:
     build:
       context: ./back-end
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
